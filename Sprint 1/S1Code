@@ -1,1 +1,74 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Rate Comparison Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .good {
+            color: green;
+        }
+        .bad {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Heart Rate Comparison Tool</h1>
+    <form id="heartRateForm">
+        <label for="age">Enter your age:</label>
+        <input type="number" id="age" required>
+        <br><br>
+        <label for="heartRate">Enter your heart rate (bpm):</label>
+        <input type="number" id="heartRate" required>
+        <br><br>
+        <button type="submit">Check</button>
+    </form>
+    <div id="result" class="result"></div>
+
+    <script>
+        // Heart rate data based on age_
+        const heartRateData = {
+            20: { min: 100, max: 170, avgMax: 200 },
+            30: { min: 95, max: 162, avgMax: 190 },
+            35: { min: 93, max: 157, avgMax: 185 }
+        };
+
+        document.getElementById('heartRateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const age = parseInt(document.getElementById('age').value);
+            const heartRate = parseInt(document.getElementById('heartRate').value);
+            const resultDiv = document.getElementById('result');
+
+            // Check if age is in the predefined data
+            if (heartRateData[age]) {
+                const { min, max } = heartRateData[age];
+
+                // Compare user's heart rate with the target zone
+                if (heartRate >= min && heartRate <= max) {
+                    resultDiv.textContent = "Your heart rate is good!";
+                    resultDiv.className = "result good";
+                } else {
+                    resultDiv.textContent = "Your heart rate is not good.";
+                    resultDiv.className = "result bad";
+                }
+            } else {
+                resultDiv.textContent = "Age not recognized. Please enter a valid age.";
+                resultDiv.className = "result bad";
+            }
+        });
+    </script>
+</body>
+</html>
