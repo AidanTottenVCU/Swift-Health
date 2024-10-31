@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Comparison Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .good {
+            color: green;
+        }
+        .bad {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Health Comparison Tool</h1>
+    <form id="healthForm">
+        <label for="age">Enter your age:</label>
+        <input type="number" id="age" required>
+        <br><br>
+        <label for="heartRate">Enter your heart rate (bpm):</label>
+        <input type="number" id="heartRate" required>
+        <br><br>
+        <label for="bloodPressure">Enter your blood pressure (systolic/diastolic mm Hg):</label>
+        <input type="text" id="bloodPressure" placeholder="e.g., 120/80" required>
+        <br><br>
+        <label for="bloodOxygen">Enter your blood oxygen level (%):</label>
+        <input type="number" id="bloodOxygen" required>
+        <br><br>
+        <label for="gender">Select your gender:</label>
+        <select id="gender" required>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+        </select>
+        <br><br>
+        <button type="submit">Check</button>
+    </form>
+    <div id="result" class="result"></div>
+
+    <script>
+        // Heart rate data based on age
+        const heartRateData = {
+            20: { min: 100, max: 170 },
+            30: { min: 95, max: 162 },
+            35: { min: 93, max: 157 },
+            40: { min: 90, max: 153 },
+            45: { min: 88, max: 149 },
+            50: { min: 85, max: 145 },
+            55: { min: 100, max: 170 },
+            60: { min: 95, max: 162 },
+            65: { min: 93, max: 157 },
+            70: { min: 75, max: 128 },
+            75: { min: 73, max: 123 },
+            80: { min: 70, max: 119 }
+        };
+
+        // Blood pressure data based on age and gender
+        const bloodPressureData = {
+            '18-39': {
+                female: { systolic: 100, diastolic: 68 },
+                male: { systolic: 119, diastolic: 70 }
+            },
+            '40-59': {
+                female: { systolic: 122, diastolic: 74 },
+                male: { systolic: 124, diastolic: 77 }
+            },
+            '60+': {
+                female: { systolic: 139, diastolic: 68 },
+                male: { systolic: 133, diastolic: 69 }
+            }
+        };
+
+        document.getElementById('healthForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const age = parseInt(document.getElementById('age').value);
+            const heartRate = parseInt(document.getElementById('heartRate').value);
+            const bloodPressureInput = document.getElementById('bloodPressure').value;
+            const bloodOxygen = parseInt(document.getElementById('bloodOxygen').value);
+            const gender = document.getElementById('gender').value;
+            const resultDiv = document.getElementById('result');
+
+            // Extract systolic and diastolic from the input
+            const [systolicBP, diastolicBP] = bloodPressureInput.split('/').map(Number);
+
+            // Check if the input values are valid numbers
+            if (isNaN(systolicBP) || isNaN(diastolicBP)) {
+                resultDiv.textContent = "Please enter a valid blood pressure in the format systolic/diastolic.";
+                resultDiv.className = "result bad";
+                return;
+            }
+
+            // Check heart rate
+            let heartRateMessage = "";
+            if (heartRateData[age]) {
+                const { min, max } = heartRateData[age];
+                if (heartRate >= min && heartRate <= max) {
+                    heartRateMessage = "Your heart rate is good!";
+                } else {
+                    heartRateMessage = "Your heart rate is not good.";
+                }
+            } else {
+                resultDiv.textContent = "Age not recognized. Please enter a valid age.";
+                resultDiv.className = "result bad";
+                return;
+            }
+
+            // Determine age category for blood pressure
+            let ageCategory;
+            if (age >= 18 && age <= 39) {
+                ageCategory = '18-39';
+            } else if (age >= 40 && age <= 59) {
+                ageCategory = '40-59';
+            } else if (age >= 60) {
+                ageCategory = '60+';
+            } else {
+                resultDiv.textContent = "Age not recognized. Please enter a valid age.";
+                resultDiv.className = "result bad";
+                return;
+            }
+
+            // Check blood pressure
+            let bloodPressureMessage = "";
+            const { systolic, diastolic } = bloodPressureData[ageCategory][gender];
+            if (systolicBP <= systolic && diastolicBP <= diastolic) {
+                bloodPressureMessage = "Your blood pressure is good!";
+            } else {
+                bloodPressureMessage = "Your blood pressure is not good.";
+            }
+
+            // Check blood oxygen level
+            let bloodOxygenMessage = "";
+            if (bloodOxygen >= 95 && bloodOxygen <= 100) {
+                bloodOxygenMessage = "Your blood oxygen level is normal.";
+            } else if (bloodOxygen >= 80 && bloodOxygen < 95) {
+                bloodOxygenMessage = "Your blood oxygen level is abnormal; the brain may be affected.";
+            } else if (bloodOxygen < 67) {
+                bloodOxygenMessage = "Cyanosis: Blood oxygen level is critically low.";
+            } else {
+                bloodOxygenMessage = "Your blood oxygen level is not good.";
+            }
+
+            // Display results
+            resultDiv.innerHTML = `<div class="result good">${heartRateMessage}</div>
+                                   <div class="result ${bloodPressureMessage.includes("not good") ? "bad" : "good"}">${bloodPressureMessage}</div>
+                                   <div class="result ${bloodOxygenMessage.includes("not good") ? "bad" : "good"}">${bloodOxygenMessage}</div>`;
+        });
+    </script>
+</body>
+</html>
