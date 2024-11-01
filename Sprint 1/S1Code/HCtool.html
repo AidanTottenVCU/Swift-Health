@@ -52,18 +52,19 @@
     <script>
         // Heart rate data based on age
         const heartRateData = {
-            20: { min: 100, max: 170 },
-            30: { min: 95, max: 162 },
-            35: { min: 93, max: 157 },
-            40: { min: 90, max: 153 },
-            45: { min: 88, max: 149 },
-            50: { min: 85, max: 145 },
-            55: { min: 100, max: 170 },
-            60: { min: 95, max: 162 },
-            65: { min: 93, max: 157 },
-            70: { min: 75, max: 128 },
-            75: { min: 73, max: 123 },
-            80: { min: 70, max: 119 }
+            20: { min: 60, max: 170 },
+            25: { min: 65, max: 165},
+            30: { min: 70, max: 162 },
+            35: { min: 70, max: 157 },
+            40: { min: 70, max: 153 },
+            45: { min: 70, max: 149 },
+            50: { min: 65, max: 145 },
+            55: { min: 60, max: 170 },
+            60: { min: 60, max: 162 },
+            65: { min: 60, max: 157 },
+            70: { min: 60, max: 128 },
+            75: { min: 60, max: 123 },
+            80: { min: 60, max: 119 }
         };
 
         // Blood pressure data based on age and gender
@@ -103,8 +104,8 @@
 
             // Check heart rate
             let heartRateMessage = "";
-            if (heartRateData[age]) {
-                const { min, max } = heartRateData[age];
+            if (heartRateData[Math.floor(age/5)*5]) {
+                const { min, max } = heartRateData[Math.floor(age/5)*5];
                 if (heartRate >= min && heartRate <= max) {
                     heartRateMessage = "Your heart rate is good!";
                 } else {
