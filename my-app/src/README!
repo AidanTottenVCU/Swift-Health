@@ -1,0 +1,10 @@
+GitHub really hates when you try and upload all the dependencies. 
+Since there are like 40k modules cuz MUI ig? You will have to just build your own react project and replace the src
+Dependencies are here: https://drive.google.com/drive/folders/1hiNU8v2IbNrJgv9Z6ukxr0ezChSU0dfR?usp=sharing
+
+Required Modules:
+react@current
+react-dom@current
+@mui/material 
+@emotion/react 
+@emotion/styled
