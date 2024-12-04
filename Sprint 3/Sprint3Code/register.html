@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physician Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Physician Registration</h2>
+        <form id="registrationForm">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+
+            <label for="license">License Number</label>
+            <input type="text" id="license" name="license" placeholder="Enter your license number" required>
+
+            <button type="submit">Register</button>
+        </form>
+        <div class="footer">
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to ensure the password and confirm password fields match
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                event.preventDefault();
+            } else {
+                // Redirect to login page after successful registration
+                alert("Registration successful! Redirecting to login...");
+                window.location.href = "login.html";
+                event.preventDefault(); // Prevent form submission to handle the redirect
+            }
+        });
+    </script>
+</body>
+</html>
+Key Updates:
+Redirect to Login Page:
+
+After the password confirmation check, if the passwords match, the user will be redirected to the login page (login.html) via window.location.href = "login.html";.
+The form submission is prevented using event.preventDefault() so that the page doesn't actually submit and reload.
+An alert will notify the user that the registration was successful before redirecting.
+Form Validation:
+
+The form will now validate the password and confirm password match before submitting, and will redirect to the login page if everything is correct.
+User Experience:
+
+After clicking the Register button, if the passwords match, the user will be directed to the login page for further action.
+Next Steps:
+Backend Setup:
+
+If you're handling actual registration (storing data), this logic should be backed by a server-side script to process the form data and save it to a database.
+Testing:
+
+Make sure to test the form for both correct and incorrect password entries to see the validation work properly.
+Let me know if you'd like any further enhancements!
+
+
+
+
+
+
+You said:
+itll direct itself to login.html right
+ChatGPT said:
+ChatGPT
+Yes, the updated code will automatically redirect the user to login.html when the form is submitted and the passwords match. This happens in the following part of the code:
+
+javascript
+Copy code
+if (password !== confirmPassword) {
+    alert("Passwords do not match!");
+    event.preventDefault(); // Prevent form submission
+} else {
+    alert("Registration successful! Redirecting to login...");
+    window.location.href = "login.html"; // Redirect to login page
+    event.preventDefault(); // Prevent form submission to handle the redirect
+}
