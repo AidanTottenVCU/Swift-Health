@@ -1,0 +1,108 @@
+html, body 
+{ 
+    height: 100%; 
+    margin: 0; 
+    display: flex; 
+    flex-direction: column;
+}
+
+/* creates a sidebar with blue color  */
+/* ---------------------------------------------------------------------------------------------- SIDEBAR start ---------------------------------------------------------------------------------------------- */
+.sidebar
+{
+    margin: 0;
+    padding: 2em 0 3em 0;
+    width: 200px;
+    flex: 1 1 100px;
+    background-color: #9db4c0;
+    position:fixed;
+    height: 100% ;
+    overflow: auto;
+    
+}
+
+/* Sidebar links */
+.sidebar a 
+{
+    display: block;
+    color: black;
+    flex: 1 1 100px;
+    padding: 16px;
+    text-decoration: none;
+}  
+
+/*Links on mouse-over */
+.sidebar a:hover 
+{
+    background-color: #253237;
+    color: white;
+}
+
+.sidebar a.account
+{    
+    position: auto;    
+       
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #253237;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+
+/* ---------------------------------------------------------------------------------------------- Sidebar END ----------------------------------------------------------------------------------------------*/
+
+
+/* ---------------------------------------------------------------------------------------------- Center BODY start---------------------------------------------------------------------------------------------- */
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 100%;
+    background-color: white;
+    padding-bottom: 100px;
+    
+}
+
+#main{
+    overflow: auto;
+}
+
+/* ---------------------------------------------------------------------------------------------- Center BODY End ---------------------------------------------------------------------------------------------- */
+
+
+/* ---------------------------------------------------------------------------------------------- Footer start ---------------------------------------------------------------------------------------------- */
+#footer{
+    background-color: #253237;
+    
+    position: relative;
+    height: 100px;
+    margin-top:-10px;
+    clear:both;
+    color: #ebf2fa;
+}
+
+
+  /* ---------------------------------------------------------------------------------------------- Footer start ---------------------------------------------------------------------------------------------- */
+
+  
